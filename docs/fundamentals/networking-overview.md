@@ -1,7 +1,7 @@
 ---
 title: .NET Aspire inner loop networking overview
 description: Learn how .NET Aspire handles networking and service bindings, and how you can use them in your app code.
-ms.date: 01/12/2024
+ms.date: 04/24/2024
 ms.topic: overview
 ---
 
@@ -14,14 +14,14 @@ One of the advantages of developing with .NET Aspire is that it enables you to d
 The inner loop is the process of developing and testing your app locally before deploying it to a target environment. .NET Aspire provides several tools and features to simplify and enhance the networking experience in the inner loop, such as:
 
 - **Launch profiles**: Launch profiles are configuration files that specify how to run your app locally. You can use launch profiles (such as the _launchSettings.json_ file) to define the service bindings, environment variables, and launch settings for your app.
-- **Service bindings/Endpoint configurations**: Service bindings are the connections between your app and the services it depends on, such as databases, message queues, or APIs. Service bindings provide information such as the service name, host port, scheme, and environment variable. You can add service bindings to your app either implicitly (via launch profiles) or explicitly by calling <xref:Aspire.Hosting.ResourceBuilderExtensions.WithServiceBinding%2A>.
+- **Service bindings/Endpoint configurations**: Service bindings are the connections between your app and the services it depends on, such as databases, message queues, or APIs. Service bindings provide information such as the service name, host port, scheme, and environment variable. You can add service bindings to your app either implicitly (via launch profiles) or explicitly by calling <xref:Aspire.Hosting.ResourceBuilderExtensions.WithEndpoint%2A>.
 - **Proxies**: .NET Aspire automatically launches a proxy for each service binding you add to your app, and assigns a port for the proxy to listen on. The proxy then forwards the requests to the port that your app listens on, which might be different from the proxy port. This way, you can avoid port conflicts and access your app and services using consistent and predictable URLs.
 
 ## How service bindings work
 
 A service binding in .NET Aspire involves two components: a **service** representing an external resource your app requires (for example, a database, message queue, or API), and a **binding** that establishes a connection between your app and the service and provides necessary information.
 
-.NET Aspire supports two service binding types: **implicit**, automatically created based on specified launch profiles defining app behavior in different environments, and **explicit**, manually created using <xref:Aspire.Hosting.ResourceBuilderExtensions.WithServiceBinding%2A>.
+.NET Aspire supports two service binding types: **implicit**, automatically created based on specified launch profiles defining app behavior in different environments, and **explicit**, manually created using <xref:Aspire.Hosting.ResourceBuilderExtensions.WithEndpoint%2A>.
 
 Upon creating a binding, whether implicit or explicit, .NET Aspire launches a lightweight reverse proxy on a specified port, handling routing and load balancing for requests from your app to the service. The proxy is a .NET Aspire implementation detail, requiring no configuration or management concern.
 
@@ -33,7 +33,7 @@ To help visualize how service bindings work, consider the .NET Aspire starter te
 
 When you call <xref:Aspire.Hosting.ProjectResourceBuilderExtensions.AddProject%2A>, the app host looks for _Properties/launchSettings.json_ to determine the default set of service bindings. The app host selects a specific launch profile using the following rules:
 
-1. An explicit <xref:Aspire.Hosting.ProjectResourceBuilderExtensions.WithLaunchProfile%2A> call on the `IResourceBuilder<ProjectResource>`.
+1. An explicit `launchProfileName` argument passed when calling `AddProject`.
 1. The `DOTNET_LAUNCH_PROFILE` environment variable. For more information, see [.NET environment variables](/dotnet/core/tools/dotnet-environment-variables).
 1. The first launch profile defined in _launchSettings.json_.
 
@@ -47,22 +47,20 @@ For the remainder of this article, imagine that you've created an <xref:Aspire.H
 var builder = DistributedApplication.CreateBuilder(args);
 ```
 
-To specify that the **https** launch profile should be used, call <xref:Aspire.Hosting.ProjectResourceBuilderExtensions.WithLaunchProfile%2A>:
-
-:::code source="snippets/networking/Networking.AppHost/Program.WithLaunchProfile.cs" id="withlaunchprofile":::
-
-This will select the **https** launch profile from _launchSettings.json_. The `applicationUrl` of that launch profile is used to create a service binding for this project. This is the equivalent of:
+To specify that the **https** launch profile should be used, select the **https** launch profile from _launchSettings.json_. The `applicationUrl` of that launch profile is used to create a service binding for this project. This is the equivalent of:
 
 :::code source="snippets/networking/Networking.AppHost/Program.WithLaunchProfile.cs" id="verbose":::
 
 > [!IMPORTANT]
 > If there's no _launchSettings.json_ (or launch profile), there are no bindings by default.
 
+For more information, see [.NET Aspire and launch profiles](launch-profiles.md).
+
 ## Ports and proxies
 
 When defining a service binding, the host port is *always* given to the proxy that sits in front of the service. This allows single or multiple replicas of a service to behave similarly. Additionally, all resource dependencies that use the <xref:Aspire.Hosting.ResourceBuilderExtensions.WithReference%2A> API rely of the proxy endpoint from the environment variable.
 
-Consider the following method chain that calls <xref:Aspire.Hosting.ProjectResourceBuilderExtensions.AddProject%2A>, <xref:Aspire.Hosting.ResourceBuilderExtensions.WithServiceBinding%2A>, and then <xref:Aspire.Hosting.ProjectResourceBuilderExtensions.WithReplicas%2A>:
+Consider the following method chain that calls <xref:Aspire.Hosting.ProjectResourceBuilderExtensions.AddProject%2A>, <xref:Aspire.Hosting.ResourceBuilderExtensions.WithHttpEndpoint%2A>, and then <xref:Aspire.Hosting.ProjectResourceBuilderExtensions.WithReplicas%2A>:
 
 :::code source="snippets/networking/Networking.AppHost/Program.WithReplicas.cs" id="withreplicas":::
 
@@ -107,8 +105,8 @@ The previous code makes the random port available in the `PORT` environment vari
 The preceding diagram depicts the following:
 
 - A web browser as an entry point to the app.
-- A host port of 5607.
-- The frontend proxy sitting between the web browser and the frontend service, listening on port 5607.
+- A host port of 5067.
+- The frontend proxy sitting between the web browser and the frontend service, listening on port 5067.
 - The frontend service listening on an environment 65001.
 
 ## Omit the host port
@@ -142,3 +140,20 @@ The preceding code:
 Consider the following diagram:
 
 :::image type="content" source="media/networking/proxy-with-docker-port-mapping-1x.png" alt-text=".NET Aspire frontend app networking diagram with a docker host.":::
+
+## Endpoint extension methods
+
+Any resource that implements the `IResourceWithEndpoints` interface can use the `WithEndpoint` extension methods. There are several overloads of this extension, allowing you to specify the scheme, container port, host port, environment variable name, and whether the endpoint is proxied.
+
+There's also an overload that allows you to specify a delegate to configure the endpoint. This is useful when you need to configure the endpoint based on the environment or other factors. Consider the following code:
+
+:::code source="snippets/networking/Networking.AppHost/Program.WithEndpoint.cs" id="withendpoint":::
+
+The preceding code provides a callback delegate to configure the endpoint. The endpoint is named `admin` and configured to use the `http` scheme and transport, as well as the 17003 host port. The consumer references this endpoint by name, consider the following `AddHttpClient` call:
+
+```csharp
+builder.Services.AddHttpClient<WeatherApiClient>(
+    client => client.BaseAddress = new Uri("http://_admin.apiservice"));
+```
+
+The `Uri` is constructed using the `admin` endpoint name prefixed with the `_` sentinel. This is a convention to indicate that the `admin` segment is the endpoint name belonging to the `apiservice` service. For more information, see [.NET Aspire service discovery](../service-discovery/overview.md).

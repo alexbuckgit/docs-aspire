@@ -2,7 +2,7 @@
 title: .NET Aspire SQL Server component
 description: This article describes the .NET Aspire SQL Server component.
 ms.topic: how-to
-ms.date: 01/22/2024
+ms.date: 05/14/2024
 ---
 
 # .NET Aspire SQL Server component
@@ -26,7 +26,7 @@ To get started with the .NET Aspire SQL Server component, install the [Aspire.Mi
 ### [.NET CLI](#tab/dotnet-cli)
 
 ```dotnetcli
-dotnet add package Aspire.Microsoft.Data.SqlClient --prerelease
+dotnet add package Aspire.Microsoft.Data.SqlClient
 ```
 
 ### [PackageReference](#tab/package-reference)
@@ -42,10 +42,10 @@ For more information, see [dotnet add package](/dotnet/core/tools/dotnet-add-pac
 
 ## Example usage
 
-In the _Program.cs_ file of your component-consuming project, call the <xref:Microsoft.Extensions.Hosting.AspireSqlServerSqlClientExtensions.AddSqlServerClient%2A> extension to register a <xref:System.Data.SqlClient.SqlConnection> for use via the dependency injection container.
+In the _:::no-loc text="Program.cs":::_ file of your component-consuming project, call the <xref:Microsoft.Extensions.Hosting.AspireSqlServerSqlClientExtensions.AddSqlServerClient%2A> extension to register a <xref:System.Data.SqlClient.SqlConnection> for use via the dependency injection container.
 
 ```csharp
-builder.AddSqlServerClient("sql");
+builder.AddSqlServerClient("sqldb");
 ```
 
 To retrieve your `SqlConnection` object an example service:
@@ -61,20 +61,14 @@ After adding a `SqlConnection`, you can get the scoped [SqlConnection](/dotnet/a
 
 ## App host usage
 
-In your app host project, register a SqlServer container and consume the connection using the following methods:
+[!INCLUDE [sql-app-host](includes/sql-app-host.md)]
 
 ```csharp
-var sql = builder.AddSqlServerContainer("sql")
-                 .AddDatabase("sqldata");
+var sql = builder.AddSqlServer("sql");
+var sqldb = sql.AddDatabase("sqldb");
 
 var myService = builder.AddProject<Projects.MyService>()
-                       .WithReference(sql);
-```
-
-The `WithReference` method configures a connection in the `MyService` project named `sqldata`. In the _Program.cs_ file of `MyService`, the sql connection can be consumed using:
-
-```csharp
-builder.AddSqlServerClient("sqldata");
+                       .WithReference(sqldb);
 ```
 
 ## Configuration
@@ -83,9 +77,9 @@ The .NET Aspire SQL Server component provides multiple configuration approaches 
 
 ### Use configuration providers
 
-The .NET Aspire SQL Server supports <xref:Microsoft.Extensions.Configuration?displayProperty=fullName>. It loads the `MicrosoftDataSqlClientSettings` from configuration files such as _appsettings.json_ by using the `Aspire:SqlServer:SqlClient` key. If you have set up your configurations in the `Aspire:SqlServer:SqlClient` section, you can just call the method without passing any parameter.
+The .NET Aspire SQL Server supports <xref:Microsoft.Extensions.Configuration?displayProperty=fullName>. It loads the `MicrosoftDataSqlClientSettings` from configuration files such as _:::no-loc text="appsettings.json":::_ by using the `Aspire:SqlServer:SqlClient` key. If you have set up your configurations in the `Aspire:SqlServer:SqlClient` section, you can just call the method without passing any parameter.
 
-The following example shows an _appsettings.json_ file that configures some of the available options:
+The following example shows an _:::no-loc text="appsettings.json":::_ file that configures some of the available options:
 
 ```json
 {
@@ -93,8 +87,8 @@ The following example shows an _appsettings.json_ file that configures some of t
     "SqlServer": {
       "SqlClient": {
         "ConnectionString": "YOUR_CONNECTIONSTRING",
-        "HealthChecks": true,
-        "Metrics": false
+        "DisableHealthChecks": false,
+        "DisableMetrics": true
       }
     }
   }
@@ -103,11 +97,11 @@ The following example shows an _appsettings.json_ file that configures some of t
 
 ### Use inline configurations
 
-You can also pass the `Action<MicrosoftDataSqlClientSettings>` delegate to set up some or all the options inline, for example to turn off the `Metrics`:
+You can also pass the `Action<MicrosoftDataSqlClientSettings>` delegate to set up some or all the options inline, for example to turn off the `DisableMetrics`:
 
 ```csharp
 builder.AddSqlServerSqlClientConfig(
-    static settings => settings.Metrics = false);
+    static settings => settings.DisableMetrics = true);
 ```
 
 ### Configuring connections to multiple databases
@@ -121,7 +115,7 @@ If you want to add more than one `SqlConnection` you could use named instances. 
       "SqlClient": {
         "INSTANCE_NAME": {
           "ServiceUri": "YOUR_URI",
-          "HealthChecks": false
+          "DisableHealthChecks": true
         }
       }
     }
@@ -139,12 +133,12 @@ builder.AddSqlServerSqlClientConfig("INSTANCE_NAME");
 
 Here are the configurable options with corresponding default values:
 
-| Name               | Description                                                                          |
-|--------------------|--------------------------------------------------------------------------------------|
-| `ConnectionString` | The connection string of the SQL Server database to connect to.                      |
-| `HealthChecks`     | A boolean value that indicates whether the database health check is enabled or not.  |
-| `Tracing`          | A boolean value that indicates whether the OpenTelemetry tracing is enabled or not.  |
-| `Metrics`          | A boolean value that indicates whether the OpenTelemetry metrics are enabled or not. |
+| Name                  | Description                                                                           |
+|-----------------------|---------------------------------------------------------------------------------------|
+| `ConnectionString`    | The connection string of the SQL Server database to connect to.                       |
+| `DisableHealthChecks` | A boolean value that indicates whether the database health check is disabled or not.  |
+| `DisableTracing`      | A boolean value that indicates whether the OpenTelemetry tracing is disabled or not.  |
+| `DisableMetrics`      | A boolean value that indicates whether the OpenTelemetry metrics are disabled or not. |
 
 [!INCLUDE [component-health-checks](../includes/component-health-checks.md)]
 
