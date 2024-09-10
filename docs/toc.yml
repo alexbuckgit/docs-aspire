@@ -3,132 +3,314 @@ items:
     href: index.yml
 
   - name: Get Started
-    expanded: true
     items:
       - name: .NET Aspire overview
-        displayName: aspire overview,architecture,key concepts
+        displayName: aspire overview,architecture,key concepts,Kubernetes,k8s
         href: get-started/aspire-overview.md
-      - name: Quickstart - Build your first .NET Aspire app
+      - name: Quickstart - Build your first .NET Aspire project
         displayName: quickstart,first app,aspire app
         href: get-started/build-your-first-aspire-app.md
-      - name: Tutorial - Add .NET Aspire to an existing app
+      - name: Tutorial - Add .NET Aspire to an existing .NET app
         href: get-started/add-aspire-existing-app.md
-      - name: Sample - .NET Aspire apps with Node.js
-        href: get-started/build-aspire-apps-with-nodejs.md
       - name: Setup and tooling
         href: fundamentals/setup-tooling.md
       - name: What's new in .NET Aspire
         href: whats-new/index.yml
 
-  - name: Fundamentals
-    expanded: true
+  - name: App Host (Orchestration)
     items:
-      - name: Distributed app host (Orchestration)
+      - name: Overview
         displayName: orchestration,aspire apphost,aspire app
         href: fundamentals/app-host-overview.md
-      - name: .NET Aspire dashboard
-        displayName: aspire dashboard,dashboard
-        href: fundamentals/dashboard.md
-      - name: Components
-        displayName: aspire components,components,nuget packages,packages
-        href: fundamentals/components-overview.md
+      - name: Orchestrate Node.js apps in .NET Aspire
+        href: get-started/build-aspire-apps-with-nodejs.md
+      - name: Orchestrate Python apps in .NET Aspire
+        href: get-started/build-aspire-apps-with-python.md
+      - name: Add Dockerfiles to the app model
+        href: app-host/withdockerfile.md
+        displayName: dockerfile,docker
       - name: Networking overview
         displayName: inner loop,local networking
         href: fundamentals/networking-overview.md
+      - name: Use external parameters
+        displayName: external parameters,configuration
+        href: fundamentals/external-parameters.md
+      - name: Persist data using volumes
+        displayName: volumes,persist data
+        href: fundamentals/persist-data-volumes.md
+
+  - name: Dashboard
+    items:
+      - name: Overview
+        displayName: aspire dashboard,dashboard
+        href: fundamentals/dashboard/overview.md
+      - name: Explore features
+        href: fundamentals/dashboard/explore.md
+      - name: Standalone mode
+        items:
+          - name: Overview
+            href: fundamentals/dashboard/standalone.md
+          - name: Tutorial — Use with Python
+            href: fundamentals/dashboard/standalone-for-python.md
+      - name: Configuration
+        href: fundamentals/dashboard/configuration.md
+      - name: Security considerations
+        href: fundamentals/dashboard/security-considerations.md
+
+  - name: Testing
+    href: fundamentals/testing.md
+
+  - name: Fundamentals
+    items:
       - name: Service discovery
-        displayName: service discovery,service to service communication
+        displayName: service discovery,service to service communication,Kubernetes,k8s
         href: service-discovery/overview.md
       - name: Service defaults
         href: fundamentals/service-defaults.md
-      - name: Persist data using volumes
-        href: fundamentals/persist-data-volumes.md
+      - name: .NET Aspire and launch profiles
+        href: fundamentals/launch-profiles.md
       - name: Health checks
         href: fundamentals/health-checks.md
       - name: Telemetry
         href: fundamentals/telemetry.md
 
-  - name: Storage
+  - name: Extensibility
     items:
-      - name: Tutorial - Connect to storage
-        href: storage/azure-storage-components.md
-      - name: Azure Blob Storage component
-        href: storage/azure-storage-blobs-component.md
-      - name: Azure Storage Queues component
-        href: storage/azure-storage-queues-component.md
-      - name: Azure Table Storage component
-        href: storage/azure-storage-tables-component.md
+      - name: Create custom resource types
+        displayName: custom resources,extensibility
+        href: extensibility/custom-resources.md
+      - name: Create custom integrations
+        displayName: custom integrations,extensibility
+        href: extensibility/custom-integration.md
+      - name: Implement auth from resource to integration
+        href: extensibility/implement-auth-from-resource-to-integration.md
 
-  - name: Database
+  - name: Integrations
     items:
-      - name: PostgreSQL Database components
+      - name: Overview
+        displayName: aspire integrations,integrations,nuget packages,packages
+        href: fundamentals/integrations-overview.md
+      - name: Tutorials
         items:
-          - name: PostgreSQL Database component
-            href: database/postgresql-component.md
-          - name: PostgreSQL - EF Core component
-            href: database/postgresql-entity-framework-component.md
-      - name: SQL Database components
+        - name: Caching using Redis integrations
+          displayName: caching,redis
+          href: caching/caching-integrations.md
+        - name: Connect to SQL Server with EF Core
+          displayName: database,sql server,ef core
+          href: database/sql-server-integrations.md
+        - name: Connect to storage
+          href: storage/azure-storage-integrations.md
+        - name: Database initialization and maintenance
+          items:
+            - name: Entity Framework Core migrations
+              href: database/ef-core-migrations.md
+            - name: Seed data in a database
+              href: database/seed-database-data.md
+        - name: Messaging using .NET Aspire integrations
+          displayName: messaging
+          href: messaging/messaging-integrations.md
+      - name: Apache Kafka
+        displayName: kafka,messaging
+        href: messaging/kafka-integration.md
+      - name: Azure
         items:
-          - name: Tutorial - Connect to SQL Server with EF Core
-            href: database/sql-server-components.md
-          - name: SQL Database component
-            href: database/sql-server-component.md
-          - name: SQL Database - EF Core component
-            href: database/sql-server-entity-framework-component.md
-      - name: Azure Cosmos DB components
+        - name: Azure AI OpenAI
+          displayName: azure ai,openai
+          href: azureai/azureai-openai-integration.md
+        - name: Azure Search Documents
+          displayName: azure search,search,azure ai
+          href: azureai/azureai-search-document-integration.md
+        - name: Azure Blob Storage
+          href: storage/azure-storage-blobs-integration.md
+        - name: Azure Cosmos DB
+          items:
+            - name: Azure Cosmos DB - EF Core
+              displayName: cosmos db,database,ef core
+              href: database/azure-cosmos-db-entity-framework-integration.md
+            - name: Azure Cosmos DB
+              displayName: cosmos db,database
+              href: database/azure-cosmos-db-integration.md
+        - name: Azure Event Hubs
+          displayName: event hubs,messaging
+          href: messaging/azure-event-hubs-integration.md
+        - name: Azure Key Vault
+          displayName: key vault,security
+          href: security/azure-security-key-vault-integration.md
+        - name: Azure SignalR Service
+          displayName: azure signalr service,signalr,real-time
+          href: real-time/azure-signalr-scenario.md
+        - name: Azure Service Bus
+          displayName: service bus,messaging
+          href: messaging/azure-service-bus-integration.md
+        - name: Azure Storage Queues
+          displayName: storage queues,azure storage
+          href: storage/azure-storage-queues-integration.md
+        - name: Azure Table Storage
+          displayName: table storage,azure storage
+          href: storage/azure-storage-tables-integration.md
+        - name: Azure Web PubSub
+          displayName: web pubsub,real-time,messaging
+          href: messaging/azure-web-pubsub-integration.md  
+      - name: Elasticsearch
+        displayName: elasticsearch,search
+        href: search/elasticsearch-integration.md
+      - name: Keycloak
+        displayName: security,openid connect,single sign-on,sso,identity,federation,account management
+        href: authentication/keycloak-integration.md
+      - name: Milvus
+        displayName: milvus,database
+        href: database/milvus-integration.md
+      - name: MongoDB
+        displayName: mongodb,database
+        href: database/mongodb-integration.md
+      - name: MySQL
+        displayName: mysql,database
+        href: database/mysql-integration.md
+      - name: NATS
+        displayName: nats,messaging
+        href: messaging/nats-integration.md
+      - name: Oracle - EF Core
+        displayName: oracle,database,ef core
+        href: database/oracle-entity-framework-integration.md
+      - name: PostgreSQL
         items:
-          - name: Azure Cosmos DB component
-            href: database/azure-cosmos-db-component.md
-          - name: Azure Cosmos DB - EF Core component
-            href: database/azure-cosmos-db-entity-framework-component.md
-      - name: MySQL Database component
-        href: database/mysql-component.md
-      - name: MongoDB component
-        href: database/mongodb-component.md
-
-  - name: Messaging
-    items:
-      - name: Tutorial - Messaging using .NET Aspire components
-        href: messaging/messaging-components.md
-      - name: Azure Service Bus component
-        href: messaging/azure-service-bus-component.md
-      - name: RabbitMQ service broker component
-        href: messaging/rabbitmq-client-component.md
-
-  - name: Caching
-    items:
-      - name: Tutorial - Caching using Redis components
-        href: caching/caching-components.md
-      - name: Redis Caching component
-        href: caching/stackexchange-redis-component.md
-      - name: Redis Output Caching component
-        href: caching/stackexchange-redis-output-caching-component.md
-      - name: Redis Distributed Cache component
-        href: caching/stackexchange-redis-distributed-caching-component.md
-
-  - name: Security
-    items:
-      - name: Azure Key Vault component
-        href: security/azure-security-key-vault-component.md
+          - name: PostgreSQL - EF Core
+            displayName: postgresql,database,ef core
+            href: database/postgresql-entity-framework-integration.md
+          - name: PostgreSQL
+            displayName: postgresql,database
+            href: database/postgresql-integration.md
+      - name: Qdrant
+        href: database/qdrant-integration.md
+      - name: RabbitMQ service broker
+        displayName: rabbitmq,messaging,service broker
+        href: messaging/rabbitmq-client-integration.md
+      - name: Redis
+        items:
+        - name: Overview
+          href: caching/stackexchange-redis-caching-overview.md
+        - name: Redis caching
+          href: caching/stackexchange-redis-integration.md
+        - name: Redis distributed cache
+          href: caching/stackexchange-redis-distributed-caching-integration.md
+        - name: Redis output caching
+          href: caching/stackexchange-redis-output-caching-integration.md
+        - name: Redis caching (Garnet)
+          href: caching/stackexchange-redis-integration.md?pivots=garnet
+        - name: Redis distributed cache (Garnet)
+          href: caching/stackexchange-redis-distributed-caching-integration.md?pivots=garnet
+        - name: Redis output caching (Garnet)
+          href: caching/stackexchange-redis-output-caching-integration.md?pivots=garnet
+        - name: Redis caching (Valkey)
+          href: caching/stackexchange-redis-integration.md?pivots=valkey
+        - name: Redis distributed cache (Valkey)
+          href: caching/stackexchange-redis-distributed-caching-integration.md?pivots=valkey
+        - name: Redis output caching (Valkey)
+          href: caching/stackexchange-redis-output-caching-integration.md?pivots=valkey
+      - name: SQL Server
+        items:
+          - name: SQL Database - EF Core
+            displayName: sql server,sql database,ef core
+            href: database/sql-server-entity-framework-integration.md
+          - name: SQL Database
+            displayName: sql server,sql database
+            href: database/sql-server-integration.md
+      - name: Seq
+        displayName: seq,logging
+        href: logging/seq-integration.md
 
   - name: Deployment
     items:
       - name: Overview
+        displayName: azure deployment,deployment,Kubernetes,k8s
         href: deployment/overview.md
       - name: Azure
         items:
-          - name: Tutorial - Azure Container Apps
+          - name: Deploy to Azure Container Apps using azd
             href: deployment/azure/aca-deployment.md
             displayName: azure container apps,aca
-          - name: Azure Container Apps with AZD (In-depth)
+          - name: Deploy to Azure Container Apps using Visual Studio
+            href: deployment/azure/aca-deployment-visual-studio.md
+            displayName: azure container apps,vs
+          - name: Azure Container Apps with azd (In-depth)
             href: deployment/azure/aca-deployment-azd-in-depth.md
             displayName: azure container apps,aca,azd
-          - name: Tutorial - Deploy using AZD and GitHub Actions
+          - name: Deploy using azd and CI/CD
             href: deployment/azure/aca-deployment-github-actions.md
           - name: Use .NET Aspire with Application Insights
             href: deployment/azure/application-insights.md
             displayName: app insights
-      - name: Reference - Tool-builder manifest schemas
+          - name: Deploy .NET Aspire + SQL Database
+            href: database/sql-server-integration-deployment.md
+          - name: Deploy .NET Aspire + Redis
+            href: caching/caching-integrations-deployment.md
+      - name: Tool-builder manifest schemas
         href: deployment/manifest-format.md
+
+  - name: Cloud
+    items:
+      - name: Azure
+        items:
+        - name: Local Azure provisioning
+          href: deployment/azure/local-provisioning.md
+        - name: Use custom Bicep templates
+          href: deployment/azure/custom-bicep-templates.md
+
+  - name: Frameworks
+    items:
+      - name: Orleans
+        items:
+          - name: Overview
+            href: frameworks/orleans.md
+          - name: Orleans voting sample
+            href: /samples/dotnet/aspire-samples/orleans-voting-sample-app-on-aspire/
+      - name: Dapr
+        items:
+        - name: Overview
+          href: frameworks/dapr.md
+        - name: Dapr integration sample
+          href: /samples/dotnet/aspire-samples/aspire-dapr/
+
+  - name: Troubleshooting
+    items:
+      - name: Allow unsecure transport
+        displayName: unsecure transport,http,non-tls
+        href: troubleshooting/allow-unsecure-transport.md
+      - name: Untrusted localhost certificate
+        href: troubleshooting/untrusted-localhost-certificate.md
+      - name: Unable to install .NET Aspire workload
+        href: troubleshooting/unable-to-install-workload.md
+      - name: The specified name is already in use
+        href: troubleshooting/name-is-already-in-use.md
+      - name: Container runtime appears to be unhealthy
+        href: troubleshooting/container-runtime-unhealthy.md
+      - name: The connection string is missing
+        href: troubleshooting/connection-string-missing.md
+      - name: .NET Aspire GitHub repository
+        href: https://github.com/dotnet/aspire
+      - name: Ask questions on Discord
+        displayName: discord,community
+        href: https://aka.ms/aspire/discord
+      - name: Stack Overflow — .NET Aspire
+        href: https://stackoverflow.com/questions/tagged/dotnet-aspire
+
+  - name: Reference
+    items:
+      - name: Diagnostics overview
+        href: diagnostics/overview.md
+      - name: .NET Aspire API reference
+        href:  /dotnet/api?view=dotnet-aspire-8.0&preserve-view=true
+      - name: .NET Aspire FAQ
+        href: reference/aspire-faq.yml
+
+  - name: Training
+    items:
+      - name: Introduction to .NET Aspire
+        href: /training/modules/introduction-dotnet-aspire
+      - name: Create a .NET Aspire project
+        href: /training/modules/create-aspire-applications
+      - name: Use telemetry in a .NET Aspire project
+        href: /training/modules/use-telemetry-dotnet-aspire
 
   - name: Resources
     items:
@@ -144,8 +326,3 @@ items:
         href: https://github.com/dotnet/extensions
       - name: ASP.NET Core
         href: https://github.com/dotnet/aspnetcore
-
-  - name: Reference
-    items:
-      - name: .NET Aspire FAQ
-        href: reference/aspire-faq.yml

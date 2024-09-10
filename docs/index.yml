@@ -1,16 +1,17 @@
 ### YamlMime:Hub
 
-title: .NET Aspire documentation (Preview)
+title: .NET Aspire documentation
+# Limit summary to 400 characters
 summary: Learn about .NET Aspire, an opinionated, cloud ready stack for building observable, production ready, distributed applications. Browse API reference, sample code, tutorials, quickstarts, conceptual articles and more.
 brand: dotnet
 
 metadata:
-  title: .NET Aspire documentation (Preview)
-  description: Samples, tutorials, and education for .NET Aspire, your cloud-native app stack build around components that provide production-ready telemetry, health checks, configurability, and testability.
+  title: .NET Aspire documentation
+  # Limit description to 165 characters
+  description: Learn about .NET Aspire, a cloud-ready stack for building distributed applications. Browse API reference, tutorials, and more.
   ms.topic: hub-page
-  ms.prod: dotnet-aspire
   ms.service: dotnet-aspire
-  ms.date: 12/08/2023
+  ms.date: 05/16/2024
 
 highlightedContent:
   items:
@@ -18,19 +19,19 @@ highlightedContent:
       title: .NET Aspire overview
       url: get-started/aspire-overview.md
     - itemType: quickstart
-      title: Build your first .NET Aspire app
+      title: Build your first .NET Aspire project
       url: get-started/build-your-first-aspire-app.md
     - itemType: concept
       title: Distributed app host
       url: fundamentals/app-host-overview.md
     - itemType: concept
-      title: .NET Aspire components
-      url: fundamentals/components-overview.md
+      title: .NET Aspire integrations
+      url: fundamentals/integrations-overview.md
     - itemType: concept
       title: Service discovery
       url: service-discovery/overview.md
     - itemType: deploy
-      title: Deploy a .NET Aspire app
+      title: Deploy a .NET Aspire project
       url: deployment/overview.md
     - itemType: reference
       title: .NET Aspire FAQ
@@ -40,7 +41,8 @@ highlightedContent:
       url: whats-new/index.yml
 
 conceptualContent:
-  # itemType: architecture | concept | deploy | download | get-started | how-to-guide | learn | overview | quickstart | reference | sample | tutorial | video | whats-new
+  # itemType: architecture | concept | deploy | download | get-started | how-to-guide | training | overview | quickstart | reference | sample | tutorial | video | whats-new
+  summary: Explore various aspects of .NET Aspire, including getting started, storage, database, messaging, caching, frameworks, deployment, and troubleshooting.
   items:
     - title: Get Started
       links:
@@ -48,10 +50,10 @@ conceptualContent:
           text: .NET Aspire overview
           url: get-started/aspire-overview.md
         - itemType: quickstart
-          text: Build your first .NET Aspire app
+          text: Build your first .NET Aspire project
           url: get-started/build-your-first-aspire-app.md
         - itemType: sample
-          text: Build .NET Aspire app with Node.js
+          text: Add a Node.js app to a .NET Aspire project
           url: get-started/build-aspire-apps-with-nodejs.md
         - itemType: how-to-guide
           text: .NET Aspire setup and tooling
@@ -59,12 +61,15 @@ conceptualContent:
         - itemType: concept
           text: .NET Aspire service discovery
           url: service-discovery/overview.md
+        - itemType: concept
+          text: .NET Aspire and launch profiles
+          url: fundamentals/launch-profiles.md
         - itemType: reference
           text: .NET Aspire service defaults
           url: fundamentals/service-defaults.md
         - itemType: reference
           text: .NET Aspire dashboard
-          url: fundamentals/dashboard.md
+          url: fundamentals/dashboard/overview.md
         - itemType: overview
           text: .NET Aspire local networking
           url: fundamentals/networking-overview.md
@@ -73,83 +78,119 @@ conceptualContent:
       links:
         - itemType: tutorial
           text: Connect to storage with .NET Aspire
-          url: storage/azure-storage-components.md
+          url: storage/azure-storage-integrations.md
         - itemType: how-to-guide
           text: Azure Blob Storage
-          url: storage/azure-storage-blobs-component.md
+          url: storage/azure-storage-blobs-integration.md
         - itemType: how-to-guide
           text: Azure Storage Queues
-          url: storage/azure-storage-queues-component.md
+          url: storage/azure-storage-queues-integration.md
         - itemType: how-to-guide
           text: Azure Table Storage
-          url: storage/azure-storage-tables-component.md
+          url: storage/azure-storage-tables-integration.md
+        - itemType: sample
+          text: Persist volume mount sample
+          url: /samples/dotnet/aspire-samples/aspire-volume-mount/
 
     - title: Database
       links:
         - itemType: tutorial
           text: Connect to SQL Server with EF Core
-          url: database/sql-server-components.md
+          url: database/sql-server-integrations.md
         - itemType: how-to-guide
           text: PostgreSQL database
-          url: database/postgresql-component.md
+          url: database/postgresql-integration.md
         - itemType: how-to-guide
           text: PostgreSQL with EF Core
-          url: database/postgresql-entity-framework-component.md
+          url: database/postgresql-entity-framework-integration.md
         - itemType: how-to-guide
           text: Azure Cosmos DB
-          url: database/azure-cosmos-db-component.md
+          url: database/azure-cosmos-db-integration.md
         - itemType: how-to-guide
           text: Azure Cosmos DB with EF Core
-          url: database/azure-cosmos-db-entity-framework-component.md
+          url: database/azure-cosmos-db-entity-framework-integration.md
         - itemType: how-to-guide
           text: SQL Database
-          url: database/sql-server-component.md
+          url: database/sql-server-integration.md
         - itemType: how-to-guide
           text: SQL Database with EF Core
-          url: database/sql-server-entity-framework-component.md
+          url: database/sql-server-entity-framework-integration.md
+        - itemType: how-to-guide
+          text: Entity Framework Core migrations
+          url: database/ef-core-migrations.md
         - itemType: how-to-guide
           text: MySqlConnector Database
-          url: database/mysql-component.md
+          url: database/mysql-integration.md
         - itemType: how-to-guide
           text: MongoDB Database
-          url: database/mongodb-component.md
+          url: database/mongodb-integration.md
 
     - title: Messaging
       links:
         - itemType: tutorial
           text: Implement Messaging with .NET Aspire
-          url: messaging/messaging-components.md
+          url: messaging/messaging-integrations.md
+        - itemType: overview
+          text: Azure Event Hubs
+          url: messaging/azure-event-hubs-integration.md
         - itemType: overview
           text: Azure Service Bus
-          url: messaging/azure-service-bus-component.md
+          url: messaging/azure-service-bus-integration.md
+        - itemType: overview
+          text: Azure Web PubSub
+          url: messaging/azure-web-pubsub-integration.md
         - itemType: how-to-guide
-          text: RabbitMQ client .NET Aspire component
-          url: messaging/rabbitmq-client-component.md
+          text: RabbitMQ client
+          url: messaging/rabbitmq-client-integration.md
+        - itemType: how-to-guide
+          text: Apache Kafka
+          url: messaging/kafka-integration.md
+        - itemType: how-to-guide
+          text: NATs
+          url: messaging/nats-integration.md
 
     - title: Caching
       links:
         - itemType: tutorial
           text: Improve app caching with .NET Aspire
-          url: caching/caching-components.md
+          url: caching/caching-integrations.md
+        - itemType: overview
+          text: Stack Exchange Redis caching overview
+          url: caching/stackexchange-redis-caching-overview.md
         - itemType: how-to-guide
           text: Redis caching
-          url: caching/stackexchange-redis-component.md
+          url: caching/stackexchange-redis-integration.md
         - itemType: how-to-guide
           text: Redis output caching
-          url: caching/stackexchange-redis-output-caching-component.md
+          url: caching/stackexchange-redis-output-caching-integration.md
         - itemType: how-to-guide
           text: Redis distributed caching
-          url: caching/stackexchange-redis-distributed-caching-component.md
+          url: caching/stackexchange-redis-distributed-caching-integration.md
+
+    - title: Frameworks
+      links:
+        - itemType: overview
+          text: Use Orleans with .NET Aspire
+          url: frameworks/orleans.md
+        - itemType: sample
+          text: Orleans voting sample
+          url: /samples/dotnet/aspire-samples/orleans-voting-sample-app-on-aspire/
+        - itemType: overview
+          text: Use Dapr with .NET Aspire
+          url: frameworks/dapr.md
+        - itemType: sample
+          text: Dapr integration sample
+          url: /samples/dotnet/aspire-samples/aspire-dapr/
 
     - title: Deployment
       links:
         - itemType: overview
           text: Overview
           url: deployment/overview.md
-        - itemType: how-to-guide
+        - itemType: deploy
           text: Deploy to Azure Container Apps
           url: deployment/azure/aca-deployment.md
-        - itemType: how-to-guide
+        - itemType: deploy
           text: Deploy using the Azure Developer CLI
           url: deployment/azure/aca-deployment-azd-in-depth.md
         - itemType: how-to-guide
@@ -159,9 +200,58 @@ conceptualContent:
           text: .NET Aspire deployment manifest format
           url: deployment/manifest-format.md
 
+    - title: Troubleshooting
+      links:
+        - itemType: how-to-guide
+          text: Allow unsecure transport
+          url: troubleshooting/allow-unsecure-transport.md
+        - itemType: how-to-guide
+          text: Unable to install workload
+          url: troubleshooting/unable-to-install-workload.md
+        - itemType: how-to-guide
+          text: Untrusted localhost certificate
+          url: troubleshooting/untrusted-localhost-certificate.md
+        - itemType: how-to-guide
+          text: The specified name is already in use
+          url: troubleshooting/name-is-already-in-use.md
+        - itemType: how-to-guide
+          text: Container runtime appears to be unhealthy
+          url: troubleshooting/container-runtime-unhealthy.md
+        - itemType: how-to-guide
+          text: The connection string is missing
+          url: troubleshooting/connection-string-missing.md
+        - itemType: reference
+          text: Ask questions on Discord
+          url: https://aka.ms/aspire/discord
+        - itemType: reference
+          text: Stack Overflow — .NET Aspire
+          url: https://stackoverflow.com/questions/tagged/dotnet-aspire
+
+    - title: Training
+      links:
+        - itemType: training
+          text: Introduction to .NET Aspire
+          url: /training/modules/introduction-dotnet-aspire
+        - itemType: training
+          text: Create a .NET Aspire project
+          url: /training/modules/create-aspire-applications
+        - itemType: training
+          text: Use telemetry in a .NET Aspire project
+          url: /training/modules/use-telemetry-dotnet-aspire
+        - itemType: training
+          text: Use databases in a .NET Aspire project
+          url: /training/modules/use-databases-dotnet-aspire-app/
+        - itemType: training
+          text: Improve performance with a cache in a .NET Aspire project
+          url: /training/modules/improve-performance-cache-aspire/
+        - itemType: training
+          text: Send messages with RabbitMQ in a .NET Aspire project
+          url: /training/modules/send-messages-rabbitmq-dotnet-aspire-app/
+
 additionalContent:
   sections:
     - title: .NET extensions
+      summary: Learn about .NET extensions, including logging, dependency injection, configuration, and more. All of which are fundamental in .NET Aspire.
       items:
         - title: Fundamentals
           links:
@@ -199,18 +289,26 @@ additionalContent:
               url: /dotnet/core/diagnostics
             - text: Diagnostic resource monitoring in .NET
               url: /dotnet/core/diagnostics/diagnostic-resource-monitoring
+
     - title: .NET community resources
+      summary: Find community resources for .NET, including webcasts, shows, open-source projects, and more.
       items:
         - title: .NET
           links:
             - text: .NET documentation
               url: /dotnet
+            - text: .NET Aspire samples browser
+              url: /samples/browse/?expanded=dotnet&terms=aspire
             - text: ASP.NET documentation
               url: /aspnet
             - text: Azure documentation
               url: /azure
             - text: C# documentation
               url: /dotnet/csharp
+            - text: .NET Discord
+              url: https://aka.ms/aspire/discord
+            - text: Official .NET Aspire Collection
+              url: /collections/2203hjxnnrop11
         - title: Webcasts and shows
           links:
             - text: Azure Friday
@@ -223,6 +321,8 @@ additionalContent:
               url: https://dotnet.microsoft.com/live/on-dotnet-live
             - text: .NET Community Standup
               url: https://dotnet.microsoft.com/platform/community/standup
+            - text: Welcome to .NET Aspire
+              url: https://www.youtube.com/playlist?list=PLdo4fOcmZ0oUfIayQMrRqaSL55Rkck-GD
         - title: Open source
           links:
             - text: .NET Aspire
@@ -247,6 +347,10 @@ additionalContent:
               url: https://dotnetfoundation.org
             - text: We Are .NET
               url: https://www.wearedotnet.io
+            - text: .NET Aspire YouTube playlist
+              url: https://www.youtube.com/playlist?list=PLdo4fOcmZ0oWTWWbWXqhn2w8NM3sQ_qDz
+            - text: .NET Aspire on YouTube
+              url: https://www.youtube.com/results?search_query=.NET+Aspire
 
     - title: API and language reference
       summary: Search the .NET API and language reference documentation.

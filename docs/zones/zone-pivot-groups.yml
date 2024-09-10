@@ -7,6 +7,8 @@ groups:
   pivots:
     - id: azure-azd
       title: Azure Developer CLI
+    - id: azure-vs
+      title: Visual Studio
     - id: azure-cli
       title: Azure CLI
     - id: azure-bicep
@@ -21,3 +23,43 @@ groups:
       title: Azure Portal
     - id: azure-cli
       title: Azure CLI
+    - id: azure-developer-cli
+      title: Azure Developer CLI
+- id: deployment-platform
+  title: Azure deployment platform
+  prompt: Choose a deployment platform
+  pivots:
+    - id: github-actions
+      title: GitHub Actions
+    - id: azure-pipelines
+      title: Azure Pipelines
+- id: dev-environment
+  title: Development environment
+  prompt: Choose a development environment
+  pivots:
+    - id: visual-studio
+      title: Visual Studio
+    - id: vscode
+      title: Visual Studio Code
+    - id: dotnet-cli
+      title: .NET CLI
+- id: resp-host
+  title: RESP Host
+  prompt: Choose a RESP Hosting resource type
+  pivots:
+    - id: redis
+      title: Redis
+    - id: garnet
+      title: Garnet
+    - id: valkey
+      title: Valkey
+- id: unit-testing-framework
+  title: Unit testing framework
+  prompt: Choose a unit testing framework
+  pivots:
+    - id: xunit
+      title: xUnit
+    - id: mstest
+      title: MSTest
+    - id: nunit
+      title: NUnit
